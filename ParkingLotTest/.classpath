@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-18">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/mayank/Downloads/byte-buddy-1.12.10.jar"/>
+	<classpathentry kind="lib" path="/Users/mayank/Downloads/junit-4.10.jar"/>
+	<classpathentry kind="lib" path="/Users/mayank/Downloads/mockito-all-2.0.2-beta.jar"/>
+	<classpathentry kind="lib" path="/Users/mayank/Downloads/mockito-core-4.6.1.jar"/>
+	<classpathentry kind="lib" path="/Users/mayank/Downloads/objenesis-3.2.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
