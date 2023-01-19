@@ -7,6 +7,7 @@ import com.app.parkinglot.exceptions.UnavailableParkingSpotException;
 import com.app.parkinglot.exceptions.VehicleNotParkedException;
 import com.app.parkinglot.factory.RecieptFactory;
 import com.app.parkinglot.factory.TicketFactory;
+import com.app.parkinglot.factory.VehicleFeeServicesFactory;
 import com.app.parkinglot.models.FeeModel;
 import com.app.parkinglot.models.ParkingLot;
 import com.app.parkinglot.models.VehicleType;
@@ -22,6 +23,8 @@ public class ParkingLotOperations implements IParkingLotOperations {
 	private final RecieptFactory recieptFactory;
 	
 	private final SpotUtils spotUtils;
+	
+	private final VehicleFeeServicesFactory vehicleFeeServicesFactory;
 
 	public ParkingLotOperations(ParkingLot parkingLot) {
 		super();
@@ -29,6 +32,7 @@ public class ParkingLotOperations implements IParkingLotOperations {
 		this.ticketFactory = new TicketFactory();
 		this.recieptFactory = new RecieptFactory();
 		this.spotUtils = new SpotUtils(parkingLot.getTwoWheelerSpots(), parkingLot.getLmvSpots(), parkingLot.getHmvSpots());
+		this.vehicleFeeServicesFactory = new VehicleFeeServicesFactory();
 	}
 
 	@Override
@@ -54,8 +58,8 @@ public class ParkingLotOperations implements IParkingLotOperations {
 		int hours = ChronoUnit.SECONDS.between(entryTime, exitTime) % 3600 == 0 
 				?  (int) ChronoUnit.HOURS.between(entryTime, exitTime) : (int) ChronoUnit.HOURS.between(entryTime, exitTime) + 1;
 		
-		VehicleFeeServices feeServices = new VehicleFeeServices();
-		double fee = feeServices.computeVehicleFee(getVehicleFee(ticket.getVehicleType()), hours);
+		VehicleFeeServices feeServices = vehicleFeeServicesFactory.createVehicleFeeServices(getVehicleFee(ticket.getVehicleType()));
+		double fee = feeServices.computeVehicleFee(hours);
 		
 		spotUtils.removeFromAssignedSpots(ticket.getVehicleType(), ticket.getSpotNumber());
 		
